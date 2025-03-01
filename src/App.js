@@ -1,25 +1,34 @@
-import logo from './logo.svg';
+// src/App.js
+import React, { useState } from 'react';
+import TaskList from './components/TaskList';
+import TaskForm from './components/TaskForm';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [showForm, setShowForm] = useState(false);
+
+  const handleTaskAdded = (newTask) => {
+    setShowForm(false);
+    console.log('New task added:', newTask);
+  };
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-container">
+    <h1>Task Manager</h1>
+    <button 
+      className="toggle-button"
+      onClick={() => setShowForm(!showForm)}
+    >
+      {showForm ? 'View Tasks' : 'Add Task'}
+    </button>
+      {showForm ? (
+        <TaskForm onTaskAdded={handleTaskAdded} />
+      ) : (
+        <TaskList />
+      )}
     </div>
   );
-}
+};
 
 export default App;
